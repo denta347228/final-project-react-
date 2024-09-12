@@ -1,7 +1,21 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
+import { searchMovie } from "../storeRedux/action";
+import "./view.css";
 
 export default function NavbarComponent() {
   const location = useLocation();
+  const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
+  const submitSearch = (e) => {
+    e.preventDefault();
+    dispatch(searchMovie(query));
+  };
+
+  const handleSearch = (e) => {
+    setQuery(e.target.value);
+  };
 
   return (
     <>
@@ -28,76 +42,28 @@ export default function NavbarComponent() {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/about">
-                  About
-                </Link>
-              </li>
-
-              {(location.pathname === "/" ||
-                location.pathname === "/about") && (
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/login">
-                      Login
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/register">
-                      Register
-                    </Link>
-                  </li>
-                </>
-              )}
-
-              {location.pathname === "/login" && (
-                <li className="nav-item">
-                  <Link className="nav-link" to="/register">
-                    Register
-                  </Link>
-                </li>
-              )}
-
-              {location.pathname === "/register" && (
-                <li className="nav-item">
-                  <Link className="nav-link" to="/login">
-                    Login
-                  </Link>
-                </li>
-              )}
             </ul>
 
             <form className="d-flex" role="search">
               <input
+                onChange={handleSearch}
+                value={query}
                 className="form-control me-2"
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
               />
-              <button className="btn btn-outline-warning" type="submit">
+              <button
+                onClick={submitSearch}
+                className="btn btn-outline-warning"
+                type="submit"
+              >
                 Search
               </button>
             </form>
           </div>
         </div>
       </nav>
-
-      <style jsx="true">{`
-        .nav-link {
-          color: #f8f9fa !important;
-          transition: color 0.3s ease;
-        }
-        .nav-link:hover {
-          color: #ffc107 !important;
-        }
-        .navbar-brand {
-          font-family: "Poppins", sans-serif;
-          font-size: 1.5rem;
-        }
-        .navbar-toggler-icon {
-          color: #ffc107;
-        }
-      `}</style>
     </>
   );
 }

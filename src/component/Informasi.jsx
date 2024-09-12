@@ -1,36 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchmovies } from "../storeRedux/action";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Informasi() {
-  const [Movies, setMovies] = useState([]);
+  const dispatch = useDispatch();
+  const Movies = useSelector((state) => state.movies.movie); // Ambil data movie dari Redux
 
-  const fetchData = async () => {
-    try {
-      const url =
-        "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
-      const options = {
-        method: "GET",
-        headers: {
-          accept: "application/json",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMTNlNWM1ZDEwZTdiYTYxOTM1MzljMGRiNWRlMmMzNSIsIm5iZiI6MTcyNjA0NjU3OC4zNjExNDcsInN1YiI6IjY2ZTE2MDQ0Yzc5NjgzOTMzMzQwYTQzNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.CwAqgmjyG2jDlOFjZD0Usj7tCQ__M6BKtu4LY1jXprI",
-        },
-      };
-
-      const data = await fetch(url, options);
-
-      const resultData = await data.json();
-      console.log(resultData);
-      setMovies(resultData.results || []);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // Mengambil data saat komponen dimount
   useEffect(() => {
-    fetchData();
-  }, []);
+    dispatch(fetchmovies()); // Panggil aksi untuk fetch data
+  }, [dispatch]);
 
   return (
     <>

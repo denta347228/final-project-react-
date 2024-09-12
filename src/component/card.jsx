@@ -15,105 +15,31 @@ import {
 } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 
-export default function MovieCard() {
-  //   const username = useSelector((state) => state.username);
-  //   //   const Movies = useSelector((state) => state);
-  //   const dispatch = useDispatch();
-  //   const [Movies, setMovies] = useState([]);
-  //   const [showModal, setShowModal] = useState(false);
-  //   const [selectedMovie, setSelectedMovie] = useState(null);
-  //   const [movieTrailer, setMovieTrailer] = useState(null);
-  //   const [comments, setComments] = useState([]);
-  //   const [newComment, setNewComment] = useState("");
-
-  const API_KEY =
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMTNlNWM1ZDEwZTdiYTYxOTM1MzljMGRiNWRlMmMzNSIsIm5iZiI6MTcyNjA0NjU3OC4zNjExNDcsInN1YiI6IjY2ZTE2MDQ0Yzc5NjgzOTMzMzQwYTQzNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.CwAqgmjyG2jDlOFjZD0Usj7tCQ__M6BKtu4LY1jXprI";
-
-  //   const fetchData = async () => {
-  //     try {
-  //       const url =
-  //         "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
-  //       const options = {
-  //         method: "GET",
-  //         headers: {
-  //           accept: "application/json",
-  //           Authorization: API_KEY,
-  //         },
-  //       };
-  //       const data = await fetch(url, options);
-  //       const resultData = await data.json();
-  //       console.log(resultData, "Final");
-  //       setMovies(resultData.results);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  const fetchMovieDetails = async (movieId) => {
-    console.log(movieId);
-    try {
-      const reviewUrl = `https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US&page=1`;
-      const options = {
-        method: "GET",
-        headers: {
-          accept: "application/json",
-          Authorization: API_KEY,
-        },
-      };
-      const reviewData = await fetch(reviewUrl, options);
-      //   const reviewResults = await reviewData.json();
-      const trailerUrl = `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`;
-      const trailerData = await fetch(trailerUrl, options);
-      const trailerResults = await trailerData.json();
-      const trailer = trailerResults.results.find(
-        (video) => video.type === "Trailer" && video.site === "YouTube"
-      );
-      setMovieTrailer(trailer);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //   useEffect(() => {
-  //     fetchData();
-  //     // fetchmovies();
-  //   }, []);
-
-  //   const handleClick = (movie) => {
-  //     setSelectedMovie(movie);
-  //     setShowModal(true);
-  //     fetchMovieDetails(movie.id);
-  //   };
+export default function Playlist() {
   const dispatch = useDispatch();
-  const Movies = useSelector((state) => state.movies.movie); // Ambil data movie dari Redux
-
+  const Movies = useSelector((state) => state.movies.movie);
   const [showModal, setShowModal] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [movieTrailer, setMovieTrailer] = useState(null);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
-    dispatch(fetchmovies()); // Panggil action fetchmovies
+    dispatch(fetchmovies());
   }, [dispatch]);
 
   const handleClick = (movie) => {
     setSelectedMovie(movie);
     setShowModal(true);
-    fetchMovieDetails(movie.id);
   };
-
-  // Rest of your component
 
   const handleClose = () => {
     setShowModal(false);
-    setMovieTrailer(null);
   };
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
     if (newComment) {
-      setComments((prevComments) => [...prevComments, newComment]); // Add new comment to comments list
+      setComments((prevComments) => [...prevComments, newComment]);
       setNewComment("");
     }
   };
@@ -135,33 +61,37 @@ export default function MovieCard() {
 
   return (
     <>
-      <Container>
-        <h1 className="text-center mb-4">Choose Your Movie</h1>
-        <Row>
-          {Movies?.map((el) => (
-            <Col xs={12} sm={6} md={4} lg={3} className="mb-4" key={el.id}>
+      <Container className="my-5">
+        <h1 className="text-center mb-4">Movie Library</h1>
+        <Row className="gy-4">
+          {Movies.map((el) => (
+            <Col xs={12} sm={6} md={4} lg={3} key={el.id}>
               <animated.div style={props}>
-                <Card className="shadow p-3 mb-5">
+                <Card className="shadow border-0 rounded">
                   <Card.Img
                     variant="top"
                     src={"https://image.tmdb.org/t/p/w500/" + el.poster_path}
-                    style={{ height: "400px", width: "auto" }}
+                    className="card-img-top rounded-top"
+                    style={{ height: "300px", objectFit: "cover" }}
                   />
                   <Card.Body>
                     <Card.Title>{el.original_title}</Card.Title>
-                    <p>Release Date: {el.release_date}</p>
-                    <p>
+                    <Card.Text>Release Date: {el.release_date}</Card.Text>
+                    <Card.Text>
                       Rating: {el.vote_average} {renderStars(el.vote_average)}
-                    </p>
+                    </Card.Text>
                     <Button
                       onClick={() => handleClick(el)}
                       type="button"
                       variant="primary"
-                      className="mr-2"
+                      className="w-100 mb-4"
                     >
-                      Review
+                      Details
                     </Button>
-                    <Link className="secondary" to={`/trailer/${el.id}`}>
+                    <Link
+                      className="btn btn-secondary w-100"
+                      to={`/trailer/${el.id}`}
+                    >
                       Trailer
                     </Link>
                   </Card.Body>
@@ -179,27 +109,9 @@ export default function MovieCard() {
             <Modal.Body>
               <p>Release Date: {selectedMovie.release_date}</p>
               <p>Overview: {selectedMovie.overview}</p>
-              <p>Rating: {selectedMovie.vote_average}</p>
-
-              {movieTrailer && (
-                <div>
-                  <h5>Trailer:</h5>
-                  <iframe
-                    width="100%"
-                    height="315"
-                    src={`https://www.youtube.com/embed/${movieTrailer.key}`}
-                    title="YouTube trailer"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              )}
-
-              {/* Form komentar */}
             </Modal.Body>
             <Modal.Footer>
-              <Button className="secondary" onClick={handleClose}>
+              <Button variant="secondary" onClick={handleClose}>
                 Close
               </Button>
             </Modal.Footer>
@@ -219,24 +131,22 @@ export default function MovieCard() {
             ))}
           </ul>
         ) : (
-          <p className="text-muted">Belum ada komentar.</p>
+          <p className="text-muted">No comments yet.</p>
         )}
 
-        {/* Form Komentar */}
+        {/* Comment Form */}
         <Form onSubmit={handleCommentSubmit} className="mt-3">
           <Form.Group controlId="formComment">
-            <Form.Label className="font-weight-bold">
-              Tambahkan Komentar
-            </Form.Label>
+            <Form.Label className="font-weight-bold">Add a Comment</Form.Label>
             <Form.Control
               type="text"
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
-              placeholder="Tulis komentar Anda"
+              placeholder="Write your comment here"
               className="mb-2"
             />
           </Form.Group>
-          <Button className="primary" type="submit w-100">
+          <Button type="submit" className="w-100">
             Submit
           </Button>
         </Form>
