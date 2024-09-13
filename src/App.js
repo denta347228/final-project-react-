@@ -1,8 +1,4 @@
-import logo from "./logo.svg";
-import Dashboard from "./pages/Dashboard";
 import { Routes, Route } from "react-router-dom";
-
-import { Link, Outlet } from "react-router-dom";
 import Card from "./component/card";
 import NavbarComponent from "./component/NavbarComponent";
 import TrailerMovie from "./component/TrailerMovie";

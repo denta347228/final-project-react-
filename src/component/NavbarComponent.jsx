@@ -5,7 +5,6 @@ import { searchMovie } from "../storeRedux/action";
 import "./view.css";
 
 export default function NavbarComponent() {
-  const location = useLocation();
   const [query, setQuery] = useState("");
   const dispatch = useDispatch();
   const submitSearch = (e) => {
