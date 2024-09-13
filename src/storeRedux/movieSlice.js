@@ -1,5 +1,3 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
 const initialState = {
   movie: [],
   status: "idle",
