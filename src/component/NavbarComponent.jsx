@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { searchMovie } from "../storeRedux/action";
 import "./view.css";
 
@@ -20,9 +20,8 @@ export default function NavbarComponent() {
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div className="container-fluid">
-          <a className="navbar-brand text-warning fw-bold" href="#">
-            Bioskop Kuning
-          </a>
+          <a className="navbar-brand text-warning fw-bold">Bioskop Kuning</a>
+
           <button
             className="navbar-toggler"
             type="button"
