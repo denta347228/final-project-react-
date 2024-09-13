@@ -13,6 +13,7 @@ import {
   Button,
   Modal,
   Pagination,
+  ButtonGroup,
 } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 
@@ -71,7 +72,7 @@ export default function Rekomendasi() {
         </h1>
         <Row>
           {currentMovies.map((el) => (
-            <Col xs={12} sm={6} md={4} lg={3} className="mb-4" key={el.id}>
+            <Col xs={12} sm={2} md={3} lg={3} key={el.id}>
               <animated.div style={fadeInProps}>
                 <Card
                   className="shadow p-2 mb-4 card-hover"
@@ -86,7 +87,7 @@ export default function Rekomendasi() {
                     variant="top"
                     src={"https://image.tmdb.org/t/p/w500/" + el.poster_path}
                     style={{
-                      height: "250px",
+                      height: "200px",
                       width: "100%",
                       objectFit: "cover",
                       borderRadius: "10px",
@@ -105,20 +106,23 @@ export default function Rekomendasi() {
                     <p style={{ fontSize: "0.875rem" }}>
                       Rating: {el.vote_average} {renderStars(el.vote_average)}
                     </p>
-                    <Button
-                      onClick={() => handleClick(el)}
-                      type="button"
-                      variant="primary"
-                      className="w-100 mb-2"
-                    >
-                      Review
-                    </Button>
-                    <Link
-                      className="btn btn-secondary w-100"
-                      to={`/trailer/${el.id}`}
-                    >
-                      Watch Trailer
-                    </Link>
+
+                    {/* Button Group for Overview and Trailer */}
+                    <ButtonGroup className="w-100">
+                      <Button
+                        onClick={() => handleClick(el)}
+                        type="button"
+                        variant="primary"
+                      >
+                        Overview
+                      </Button>
+                      <Link
+                        className="btn btn-warning"
+                        to={`/trailer/${el.id}`}
+                      >
+                        Trailer
+                      </Link>
+                    </ButtonGroup>
                   </Card.Body>
                 </Card>
               </animated.div>

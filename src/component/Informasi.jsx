@@ -2,13 +2,14 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchmovies } from "../storeRedux/action";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+// Ambil data movie dari Redux
 export default function Informasi() {
   const dispatch = useDispatch();
-  const Movies = useSelector((state) => state.movies.movie); // Ambil data movie dari Redux
+  const Movies = useSelector((state) => state.movies.movie);
 
+  // Panggil aksi untuk fetch data
   useEffect(() => {
-    dispatch(fetchmovies()); // Panggil aksi untuk fetch data
+    dispatch(fetchmovies());
   }, [dispatch]);
 
   return (

@@ -15,7 +15,6 @@ function App() {
       <NavbarComponent />
       <Informasi />
       <Rekomendasi />
-
       <Routes>
         <Route path="/trailer/:id" element={<TrailerMovie />} />
         <Route path="/" element={<Card />} />
