@@ -7,8 +7,7 @@ export default function TrailerMovie() {
   const [movieTrailer, setMovieTrailer] = useState(null);
   const [playlists, setPlaylists] = useState([]);
   const [cast, setCast] = useState([]); // State untuk menyimpan data cast
-  const API_KEY =
-    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMTNlNWM1ZDEwZTdiYTYxOTM1MzljMGRiNWRlMmMzNSIsIm5iZiI6MTcyNjA0NjU3OC4zNjExNDcsInN1YiI6IjY2ZTE2MDQ0Yzc5NjgzOTMzMzQwYTQzNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.CwAqgmjyG2jDlOFjZD0Usj7tCQ__M6BKtu4LY1jXprI";
+  const API_KEY = process.env.REACT_APP_API_KEY;
 
   useEffect(() => {
     const fetchMovieDetails = async (movieId) => {

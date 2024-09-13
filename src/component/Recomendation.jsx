@@ -24,6 +24,7 @@ export default function Rekomendasi() {
   const Movies = useSelector((state) => state.movies.movie);
 
   const [showModal, setShowModal] = useState(false);
+  //tempt movie ketika modal dibuka
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [moviesPerPage] = useState(4);
