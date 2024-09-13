@@ -20,7 +20,9 @@ export default function NavbarComponent() {
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div className="container-fluid">
-          <a className="navbar-brand text-warning fw-bold">Bioskop Kuning</a>
+          <p className="navbar-brand text-warning fw-bold my-auto">
+            Bioskop Kuning
+          </p>
 
           <button
             className="navbar-toggler"
