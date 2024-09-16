@@ -8,7 +8,8 @@ const fetchfilm = (payload) => ({
 export const fetchmovies = () => {
   return async (dispatch) => {
     try {
-      const API_KEY = process.env.REACT_APP_API_KEY;
+      const API_KEY =
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMTNlNWM1ZDEwZTdiYTYxOTM1MzljMGRiNWRlMmMzNSIsIm5iZiI6MTcyNjA0NjU3OC4zNjExNDcsInN1YiI6IjY2ZTE2MDQ0Yzc5NjgzOTMzMzQwYTQzNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.CwAqgmjyG2jDlOFjZD0Usj7tCQ__M6BKtu4LY1jXprI";
       const url_fetch =
         "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
       const options = {
@@ -30,7 +31,8 @@ export const fetchmovies = () => {
 export const searchMovie = (search) => {
   return async (dispatch) => {
     try {
-      const API_KEY = "process.env.REACT_APP_API_KEY";
+      const API_KEY =
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwMTNlNWM1ZDEwZTdiYTYxOTM1MzljMGRiNWRlMmMzNSIsIm5iZiI6MTcyNjA0NjU3OC4zNjExNDcsInN1YiI6IjY2ZTE2MDQ0Yzc5NjgzOTMzMzQwYTQzNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.CwAqgmjyG2jDlOFjZD0Usj7tCQ__M6BKtu4LY1jXprI";
       const url_fetch = `https://api.themoviedb.org/3/search/movie?&query=${search}`;
       const options = {
         method: "GET",

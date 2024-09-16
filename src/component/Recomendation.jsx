@@ -24,7 +24,6 @@ export default function Rekomendasi() {
   const Movies = useSelector((state) => state.movies.movie);
 
   const [showModal, setShowModal] = useState(false);
-  //tempt movie ketika modal dibuka
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [moviesPerPage] = useState(4);
@@ -61,14 +60,12 @@ export default function Rekomendasi() {
     delay: 100,
   });
 
-  // Pagination logic
   const indexOfLastMovie = currentPage * moviesPerPage;
   const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
   const currentMovies = Movies.slice(indexOfFirstMovie, indexOfLastMovie);
   const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
   const totalPages = Math.ceil(Movies.length / moviesPerPage);
 
-  // Get top-rated movies for the right-hand list
   const topRatedMovies = [...Movies]
     .sort((a, b) => b.vote_average - a.vote_average)
     .slice(0, 5);
@@ -80,11 +77,14 @@ export default function Rekomendasi() {
           {/* Main Movie List */}
           <Col lg={9}>
             <h1 className="heading-wrapper">
-              <span className="heading-line"> Instant Choice Movies</span>
+              <span className="heading-line d-block w-100">
+                {" "}
+                Instant Choice Movies
+              </span>
             </h1>
             <Row>
               {currentMovies.map((el) => (
-                <Col xs={12} sm={2} md={3} lg={3} key={el.id}>
+                <Col xs={12} sm={6} md={4} lg={3} key={el.id}>
                   <animated.div style={fadeInProps}>
                     <Card
                       className="shadow p-2 mb-4 card-hover"
@@ -122,7 +122,6 @@ export default function Rekomendasi() {
                           {renderStars(el.vote_average)}
                         </p>
 
-                        {/* Button Group for Overview and Trailer */}
                         <ButtonGroup className="w-100">
                           <Button
                             onClick={() => handleClick(el)}
@@ -145,7 +144,6 @@ export default function Rekomendasi() {
               ))}
             </Row>
 
-            {/* Pagination */}
             <div className="d-flex justify-content-center mt-4">
               <Pagination>
                 <Pagination.Prev
@@ -169,10 +167,9 @@ export default function Rekomendasi() {
             </div>
           </Col>
 
-          {/* Top-Rated Movies List */}
           <Col lg={3}>
             <h1 className="heading-wrapper">
-              <span className="heading-line"> TOP Movies</span>
+              <span className="heading-line d-block w-100"> TOP Movies</span>
             </h1>
             <ListGroup variant="flush">
               {topRatedMovies.map((movie) => (
@@ -202,7 +199,6 @@ export default function Rekomendasi() {
           </Col>
         </Row>
 
-        {/* Movie Modal */}
         {selectedMovie && (
           <Modal show={showModal} onHide={handleClose} centered>
             <Modal.Header closeButton>
